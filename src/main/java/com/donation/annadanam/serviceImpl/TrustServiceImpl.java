@@ -18,7 +18,7 @@ public class TrustServiceImpl implements TrustService {
     @Autowired
     private TrustRepository trustRepository;
     @Autowired
-    private SlotServiceImpl slotRepository;
+    private SlotRepository slotRepository;
    
     @Override
     public Trust addTrust(Trust trust) {
@@ -51,7 +51,7 @@ public class TrustServiceImpl implements TrustService {
     @Override
     public List<Slot> findAvailableSlots(Long trustId) {
         
-        List<Slot> slots = slotRepository.getAvailableSlotsByTrustId(trustId);
+        List<Slot> slots = slotRepository.findByTrustIdAndAvailable(trustId, true);
         return slots;
     }
 

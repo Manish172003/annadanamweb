@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.donation.annadanam.entities.Slot;
 
+
 public interface SlotService {
     Slot addSlot(Slot slot);
     Slot updateSlot(Long id, Slot slot);
