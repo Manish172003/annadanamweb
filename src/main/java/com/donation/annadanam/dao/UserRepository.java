@@ -3,8 +3,8 @@ package com.donation.annadanam.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.donation.annadanam.entities.Trust;
+import com.donation.annadanam.entities.User;
 
 @Repository
-public interface TrustRepository extends JpaRepository<Trust, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 }
