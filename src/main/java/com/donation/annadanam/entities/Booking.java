@@ -3,6 +3,10 @@ package com.donation.annadanam.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,11 +46,13 @@ public class Booking {
 		return slots;
 	}
 
-	public void setSlots(List<Slot> slots) {
-		this.slots = slots;
+	public void setSlot(Slot slot) {
+		this.slots.add(slot);
 	}
-
+//	
+	
 	@OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("booking")
     private List<Slot> slots;
 
     

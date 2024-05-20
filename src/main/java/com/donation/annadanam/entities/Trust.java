@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -21,7 +23,7 @@ public class Trust {
 
     private String name;
     
-    @JsonManagedReference
+    @JsonIgnoreProperties("trust")
     @OneToMany(mappedBy = "trust", cascade = CascadeType.ALL)
     private List<Slot> slots;
 

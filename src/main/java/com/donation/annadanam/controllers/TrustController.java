@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.donation.annadanam.entities.Slot;
 import com.donation.annadanam.entities.Trust;
 import com.donation.annadanam.services.TrustService;
 
@@ -46,5 +47,11 @@ public class TrustController {
     public ResponseEntity<List<Trust>> getAllTrusts() {
         List<Trust> trusts = trustService.getAllTrusts();
         return ResponseEntity.ok(trusts);
+    }
+    
+    @GetMapping("availableslots/{id}")
+    public ResponseEntity<List<Slot>> findAvailableSlots(@PathVariable Long id) {
+        List<Slot> availableSlots = trustService.findAvailableSlots(id);
+        return ResponseEntity.ok(availableSlots);
     }
 }

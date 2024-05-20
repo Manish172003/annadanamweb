@@ -32,7 +32,6 @@ public class SlotServiceImpl implements SlotService {
         Trust trust = trustRepository.findById(trustId)
                 .orElseThrow(() -> new ResourceNotFoundException("Trust not found with id: " + trustId));
         slot.setTrust(trust);
-//        trust.setSlots(getAllSlots());
         return slotRepository.save(slot);
     }
 

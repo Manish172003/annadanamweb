@@ -17,11 +17,12 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
-    @PostMapping
-    public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
-        Booking createdBooking = bookingService.addBooking(booking);
-        return ResponseEntity.ok(createdBooking);
-    }
+	    @PostMapping
+	    @RequestMapping("/createbooking")
+	    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking, @RequestParam Long slotId) {
+	        Booking createdBooking = bookingService.createBooking(booking,slotId);
+	        return ResponseEntity.ok(createdBooking);
+	    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @RequestBody Booking booking) {
@@ -42,6 +43,7 @@ public class BookingController {
     }
 
     @GetMapping
+    @RequestMapping("/getallbookings")
     public ResponseEntity<List<Booking>> getAllBookings() {
         List<Booking> bookings = bookingService.getAllBookings();
         return ResponseEntity.ok(bookings);

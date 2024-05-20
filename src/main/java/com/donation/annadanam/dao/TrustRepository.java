@@ -7,4 +7,5 @@ import com.donation.annadanam.entities.Trust;
 
 @Repository
 public interface TrustRepository extends JpaRepository<Trust, Long> {
+	
 }

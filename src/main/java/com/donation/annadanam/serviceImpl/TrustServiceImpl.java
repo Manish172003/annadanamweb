@@ -17,6 +17,8 @@ public class TrustServiceImpl implements TrustService {
 
     @Autowired
     private TrustRepository trustRepository;
+    @Autowired
+    private SlotServiceImpl slotRepository;
    
     @Override
     public Trust addTrust(Trust trust) {
@@ -44,6 +46,13 @@ public class TrustServiceImpl implements TrustService {
     public Trust getTrustById(Long id) {
         return trustRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Trust not found with id: " + id));
+    }
+    
+    @Override
+    public List<Slot> findAvailableSlots(Long trustId) {
+        
+        List<Slot> slots = slotRepository.getAvailableSlotsByTrustId(trustId);
+        return slots;
     }
 
     @Override

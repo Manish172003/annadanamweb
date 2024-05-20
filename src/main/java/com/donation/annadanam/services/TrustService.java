@@ -12,4 +12,5 @@ public interface TrustService {
     void deleteTrust(Long id);
     Trust getTrustById(Long id);
     List<Trust> getAllTrusts();
+    List<Slot> findAvailableSlots(Long trustId);
 }

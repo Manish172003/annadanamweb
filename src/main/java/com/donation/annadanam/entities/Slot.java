@@ -11,6 +11,8 @@ import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Slot {
@@ -24,8 +26,13 @@ public class Slot {
 
     @ManyToOne
     @JoinColumn(name = "trust_id")
-    @JsonBackReference
+    @JsonIgnoreProperties("slots")
     private Trust trust;
+    
+    @ManyToOne
+    @JoinColumn(name = "booking_id")
+    @JsonIgnoreProperties("slots")
+    private Booking booking;
 
     public Long getId() {
 		return id;
@@ -75,9 +82,6 @@ public class Slot {
 		this.booking = booking;
 	}
 
-	@ManyToOne
-    @JoinColumn(name = "booking_id")
-    private Booking booking;
 
    
 }
