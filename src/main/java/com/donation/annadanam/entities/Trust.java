@@ -23,9 +23,19 @@ public class Trust {
 
     private String name;
     
+    private String city;
+    
     @JsonIgnoreProperties("trust")
     @OneToMany(mappedBy = "trust", cascade = CascadeType.ALL)
     private List<Slot> slots;
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
 
 	public Long getId() {
 		return id;

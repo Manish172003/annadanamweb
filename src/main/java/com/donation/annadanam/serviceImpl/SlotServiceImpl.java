@@ -10,6 +10,7 @@ import com.donation.annadanam.entities.Trust;
 import com.donation.annadanam.exception.ResourceNotFoundException;
 import com.donation.annadanam.services.SlotService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -70,5 +71,10 @@ public class SlotServiceImpl implements SlotService {
     @Override
     public List<Slot> getAvailableSlotsByTrustId(Long trustId) {
         return slotRepository.findByTrustIdAndAvailable(trustId, true);
+    }
+    
+    @Override
+    public List<Slot> getAvailableSlotsForDateAndTrust(Long trustId, LocalDate date) {
+        return slotRepository.findSlotsForDateAndTrust(trustId, date);
     }
 }

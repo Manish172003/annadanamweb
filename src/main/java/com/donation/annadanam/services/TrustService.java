@@ -14,4 +14,6 @@ public interface TrustService {
     Trust getTrustById(Long id);
     List<Trust> getAllTrusts();
     List<Slot> findAvailableSlots(Long trustId);
+    List<Trust> getTrustsByCity(String city);
+        
 }

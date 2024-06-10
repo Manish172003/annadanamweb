@@ -54,7 +54,10 @@ public class TrustServiceImpl implements TrustService {
         List<Slot> slots = slotRepository.findByTrustIdAndAvailable(trustId, true);
         return slots;
     }
-
+    @Override
+    public List<Trust> getTrustsByCity(String city) {
+        return trustRepository.findByCity(city);
+    }
     @Override
     public List<Trust> getAllTrusts() {
         return trustRepository.findAll();

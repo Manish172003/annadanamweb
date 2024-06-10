@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import com.donation.annadanam.entities.Slot;
 import com.donation.annadanam.services.SlotService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/slots")
+@CrossOrigin("http://localhost:3000")
 public class SlotController {
 
     @Autowired
@@ -21,6 +23,13 @@ public class SlotController {
     public ResponseEntity<Slot> addSlot(@RequestBody Slot slot ) {
         Slot createdSlot = slotService.addSlot(slot);
         return ResponseEntity.ok(createdSlot);
+    }
+    
+    @GetMapping("/available")
+    public ResponseEntity<List<Slot>> getAvailableSlotsForDateAndTrust(@RequestParam Long trustId, @RequestParam String date) {
+        LocalDate localDate = LocalDate.parse(date);
+        List<Slot> slots = slotService.getAvailableSlotsForDateAndTrust(trustId, localDate);
+        return ResponseEntity.ok(slots);
     }
     
     @PostMapping

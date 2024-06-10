@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/trusts")
+@CrossOrigin("http://localhost:3000")
 public class TrustController {
 
     @Autowired
@@ -22,6 +23,12 @@ public class TrustController {
     public ResponseEntity<Trust> addTrust(@RequestBody Trust trust) {
         Trust createdTrust = trustService.addTrust(trust);
         return ResponseEntity.ok(createdTrust);
+    }
+    
+    @GetMapping("/city/{city}")
+    public ResponseEntity<List<Trust>> getTrustsByCity(@PathVariable String city) {
+        List<Trust> trusts = trustService.getTrustsByCity(city);
+        return ResponseEntity.ok(trusts);
     }
 
     @PutMapping("/{id}")
