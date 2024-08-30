@@ -21,6 +21,7 @@ public class TrustController {
     @PostMapping
     @RequestMapping("/addtrust")
     public ResponseEntity<Trust> addTrust(@RequestBody Trust trust) {
+    	System.out.println(trust);
         Trust createdTrust = trustService.addTrust(trust);
         return ResponseEntity.ok(createdTrust);
     }

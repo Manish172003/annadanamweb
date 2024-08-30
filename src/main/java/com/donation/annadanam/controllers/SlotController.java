@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/slots")
+@RequestMapping("/trusts/slots")
 @CrossOrigin("http://localhost:3000")
 public class SlotController {
 

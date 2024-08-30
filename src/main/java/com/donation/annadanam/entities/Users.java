@@ -14,26 +14,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-public class User {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
     private String password;
+    
+    private String email;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Booking> bookings;
 
-    // Getters and setters
+    
 
-    public enum Role {
-        ADMIN,
-        DONATOR
-    }
+    public Role role;
 
 	public Long getId() {
 		return id;
@@ -73,6 +70,14 @@ public class User {
 
 	public void setBookings(List<Booking> bookings) {
 		this.bookings = bookings;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
     

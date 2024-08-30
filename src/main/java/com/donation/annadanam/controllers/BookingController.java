@@ -25,28 +25,28 @@ public class BookingController {
 	        return ResponseEntity.ok(createdBooking);
 	    }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @RequestBody Booking booking) {
-        Booking updatedBooking = bookingService.updateBooking(id, booking);
-        return ResponseEntity.ok(updatedBooking);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
-        bookingService.deleteBooking(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
-        Booking booking = bookingService.getBookingById(id);
-        return ResponseEntity.ok(booking);
-    }
-
-    @GetMapping
-    @RequestMapping("/getallbookings")
-    public ResponseEntity<List<Booking>> getAllBookings() {
-        List<Booking> bookings = bookingService.getAllBookings();
-        return ResponseEntity.ok(bookings);
-    }
+	    @PutMapping("/{id}")
+	    public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @RequestBody Booking booking) {
+	        Booking updatedBooking = bookingService.updateBooking(id, booking);
+	        return ResponseEntity.ok(updatedBooking);
+	    }
+	
+	    @DeleteMapping("/{id}")
+	    public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
+	        bookingService.deleteBooking(id);
+	        return ResponseEntity.noContent().build();
+	    }
+	
+	    @GetMapping("/{id}")
+	    public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
+	        Booking booking = bookingService.getBookingById(id);
+	        return ResponseEntity.ok(booking);
+	    }
+	
+	    @GetMapping
+	    @RequestMapping("/getallbookings")
+	    public ResponseEntity<List<Booking>> getAllBookings() {
+	        List<Booking> bookings = bookingService.getAllBookings();
+	        return ResponseEntity.ok(bookings);
+	    }
 }
