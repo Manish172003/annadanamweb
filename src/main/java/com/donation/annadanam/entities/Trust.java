@@ -25,8 +25,17 @@ public class Trust {
     
     private String city;
     
-    @JsonIgnoreProperties("trust")
+    private String email;
+    
+    private String password;
+    
     @OneToMany(mappedBy = "trust", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"trust", "slots"})
+    private List<Booking> bookings;
+    
+  
+    @OneToMany(mappedBy = "trust", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"trust", "booking"})
     private List<Slot> slots;
 
 	public String getCity() {
@@ -59,6 +68,30 @@ public class Trust {
 
 	public void setSlots(List<Slot> slots) {
 		this.slots = slots;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
    

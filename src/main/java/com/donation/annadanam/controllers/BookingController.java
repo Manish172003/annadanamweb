@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import com.donation.annadanam.entities.Booking;
 import com.donation.annadanam.services.BookingService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.List;
 
 @RestController
@@ -20,8 +22,8 @@ public class BookingController {
 
 	    @PostMapping
 	    @RequestMapping("/createbooking")
-	    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking, @RequestParam Long slotId) {
-	        Booking createdBooking = bookingService.createBooking(booking,slotId);
+	    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking,HttpServletRequest request, @RequestParam Long slotId) {
+	        Booking createdBooking = bookingService.createBooking(booking,request,slotId);
 	        return ResponseEntity.ok(createdBooking);
 	    }
 

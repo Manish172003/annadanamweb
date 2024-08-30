@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import com.donation.annadanam.entities.Slot;
 import com.donation.annadanam.services.SlotService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -34,8 +36,8 @@ public class SlotController {
     
     @PostMapping
     @RequestMapping("/addslottotrust")
-    public ResponseEntity<Slot> addSlotToTrust(@RequestBody Slot slot,@RequestParam Long trustId) {
-    	Slot createdSlot = slotService.addSlotToTrust(slot, trustId);
+    public ResponseEntity<Slot> addSlotToTrust(@RequestBody Slot slot,HttpServletRequest request) {
+    	Slot createdSlot = slotService.createSlot(slot, request);
         return ResponseEntity.ok(createdSlot);
     }
 
@@ -63,7 +65,7 @@ public class SlotController {
         return ResponseEntity.ok(slots);
     }
 
-    @GetMapping("/trust/{trustId}")
+    @GetMapping("/trust/availableslots")
     public ResponseEntity<List<Slot>> getSlotsByTrustId(@PathVariable Long trustId) {
         List<Slot> slots = slotService.getSlotsByTrustId(trustId);
         return ResponseEntity.ok(slots);

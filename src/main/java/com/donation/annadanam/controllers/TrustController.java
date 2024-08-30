@@ -4,9 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.donation.annadanam.entities.Booking;
 import com.donation.annadanam.entities.Slot;
 import com.donation.annadanam.entities.Trust;
+import com.donation.annadanam.services.BookingService;
 import com.donation.annadanam.services.TrustService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
@@ -17,6 +21,9 @@ public class TrustController {
 
     @Autowired
     private TrustService trustService;
+    @Autowired
+    private BookingService bookingService;
+   
 
     @PostMapping
     @RequestMapping("/addtrust")
@@ -57,9 +64,17 @@ public class TrustController {
         return ResponseEntity.ok(trusts);
     }
     
-    @GetMapping("availableslots/{id}")
-    public ResponseEntity<List<Slot>> findAvailableSlots(@PathVariable Long id) {
-        List<Slot> availableSlots = trustService.findAvailableSlots(id);
+    @GetMapping
+    @RequestMapping("/getbookings")
+    public ResponseEntity<List<Booking>> getBookings(HttpServletRequest request) 
+    {
+        List<Booking> bookings = bookingService.getAllBookingsofTrust(request);
+        return ResponseEntity.ok(bookings);
+    }
+    
+    @GetMapping("/availableslots")
+    public ResponseEntity<List<Slot>> findAvailableSlots(HttpServletRequest request) {
+        List<Slot> availableSlots = trustService.findAvailableSlots(request);
         return ResponseEntity.ok(availableSlots);
     }
 }

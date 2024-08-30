@@ -85,8 +85,10 @@ public class UserService {
         Users createdUser = repo.save(user);
         
         Trust trust = new Trust();
-        trust.setName(trustSignupRequest.getUsername());
+        trust.setName(trustSignupRequest.getName());
         trust.setCity(trustSignupRequest.getCity());
+        trust.setEmail(trustSignupRequest.getEmail());
+        trust.setPassword(encoder.encode(trustSignupRequest.getPassword()));
         trustrepo.save(trust);
         return trust;
     }
@@ -104,6 +106,7 @@ public class UserService {
         Donar donar = new Donar();
         donar.setEmail(donarSignupRequest.getEmail());
         donar.setName(donarSignupRequest.getName());
+        donar.setPassword(encoder.encode(donarSignupRequest.getPassword()));
         donarrepo.save(donar);
         
         

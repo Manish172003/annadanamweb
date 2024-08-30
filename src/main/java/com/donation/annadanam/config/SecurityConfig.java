@@ -46,6 +46,7 @@ public class SecurityConfig {
                  authorizeHttpRequests(request -> request
                          .requestMatchers("/api/auth/**").permitAll()
                          .requestMatchers("/trusts/**").hasAnyAuthority(Role.TRUST.name())
+                         .requestMatchers("/donar/**").hasAnyAuthority(Role.DONAR.name())
                          .requestMatchers("/bookings/**").hasAnyAuthority(Role.DONAR.name())
                          .anyRequest().authenticated()).
                  httpBasic(Customizer.withDefaults()).

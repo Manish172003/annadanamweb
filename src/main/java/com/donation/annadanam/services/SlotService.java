@@ -4,13 +4,20 @@ package com.donation.annadanam.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.donation.annadanam.dao.DonarRepository;
 import com.donation.annadanam.dao.SlotRepository;
 import com.donation.annadanam.dao.TrustRepository;
+import com.donation.annadanam.dao.UserRepository;
+import com.donation.annadanam.entities.Donar;
 import com.donation.annadanam.entities.Slot;
 import com.donation.annadanam.entities.Trust;
+import com.donation.annadanam.entities.Users;
 import com.donation.annadanam.exception.ResourceNotFoundException;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,10 +25,18 @@ public class SlotService {
 
     @Autowired
     private SlotRepository slotRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private TrustRepository trustRepository;
+    
+    @Autowired
+    private DonarRepository donarRepository;
 
+    @Autowired
+    private JWTService jwtService;
     /**
      * Adds a new slot to the database.
      * @param slot The slot entity to add.
@@ -37,11 +52,43 @@ public class SlotService {
      * @param trustId The ID of the trust.
      * @return The added Slot entity.
      */
-    public Slot addSlotToTrust(Slot slot, Long trustId) {
-        Trust trust = trustRepository.findById(trustId)
-                .orElseThrow(() -> new ResourceNotFoundException("Trust not found with id: " + trustId));
+    public Slot createSlot(Slot slot, HttpServletRequest request) {
+        // Step 1: Extract JWT token from the Authorization header
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            throw new IllegalArgumentException("Invalid or missing Authorization header.");
+        }
+        String token = authHeader.substring(7); // Remove "Bearer " prefix
+
+        // Step 2: Extract email from the JWT token
+        String email = jwtService.extractUserName(token); // Assuming extractUsername method fetches email
+
+        // Step 3: Fetch the user by email
+        Trust trust = trustRepository.findByEmail(email);
+        
+        System.out.println("create slot" + trust);
+              
+
+        // Step 4: Fetch the Trust entity using Trust ID from the user
+        Long trustId = trust.getId();// Assuming user has a Trust association
+       
+
+        // Step 5: Associate the Slot with the Trust
         slot.setTrust(trust);
-        return slotRepository.save(slot);
+
+        // Step 6: Add the Slot to Trust's list of slots
+        List<Slot> slots = trust.getSlots();
+        if (slots == null) {
+            slots = new ArrayList<>();
+            trust.setSlots(slots);
+        }
+        slots.add(slot); // Adding the Slot to Trust's slots list
+
+        // Step 7: Save the Slot and update Trust
+        slot = slotRepository.save(slot);
+        trustRepository.save(trust); // Update Trust to ensure it has the latest Slot list
+
+        return slot;
     }
 
     /**

@@ -12,5 +12,5 @@ import com.donation.annadanam.entities.Trust;
 @Repository
 public interface TrustRepository extends JpaRepository<Trust, Long> {
 	List<Trust> findByCity(String city);
-
+	Trust findByEmail(String email);
 }

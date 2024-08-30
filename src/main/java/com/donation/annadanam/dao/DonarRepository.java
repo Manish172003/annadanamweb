@@ -7,5 +7,5 @@ import com.donation.annadanam.entities.Donar;
 
 @Repository
 public interface DonarRepository extends JpaRepository<Donar, Long>{
-
+     Donar findByEmail(String email);
 }

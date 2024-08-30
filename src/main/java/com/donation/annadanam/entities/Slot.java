@@ -26,12 +26,12 @@
 	
 	    @ManyToOne
 	    @JoinColumn(name = "trust_id")
-	    @JsonIgnoreProperties("slots")
+	    @JsonIgnoreProperties({"slots", "bookings"}) 
 	    private Trust trust;
 	    
 	    @ManyToOne
 	    @JoinColumn(name = "booking_id")
-	    @JsonIgnoreProperties("slots")
+	    @JsonIgnoreProperties({"slots", "trust"})
 	    private Booking booking;
 	
 	    public Long getId() {
